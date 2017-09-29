@@ -41,8 +41,19 @@
     <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
   </footer>
 </div>
-<script src="js/perfmatters.js" async></script>
 <script>
+  function logCRP() {
+    var t = window.performance.timing,
+        dcl = t.domContentLoadedEventStart - t.domLoading,
+        complete = t.domComplete - t.domLoading;
+    var stats = document.getElementById("crp-stats");
+    stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
+  }
+  window.addEventListener("load", function(event) {
+    logCRP();
+  });
+</script>
+<script async>
   (function (w, g) {
     w['GoogleAnalyticsObject'] = g;
     w[g] = w[g] || function () {(w[g].q = w[g].q || []).push(arguments)};
